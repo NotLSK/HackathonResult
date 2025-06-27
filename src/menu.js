@@ -1,4 +1,5 @@
-import {Menu} from './core/menu'
+import {Menu} from './core/menu.js';
+import {Module} from './core/module.js';
 
 export class ContextMenu extends Menu {
     constructor(selector) {
@@ -16,10 +17,19 @@ export class ContextMenu extends Menu {
     } 
 
     open (x, y) {
-        this.el.style.left = `${x}px`;
-        this.el.style.top = `${y}px`;
+        this.el.classList.add('open');
 
-        this.el.classList.add('open')
+        const menuWidth = this.el.offsetWidth;
+        const menuHeight = this.el.offsetHeight;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        
+        const adjustedX = x + menuWidth > windowWidth ? windowWidth - menuWidth : x;
+        const adjustedY = y + menuHeight > windowHeight ? windowHeight - menuHeight : y;
+
+        this.el.style.left = `${adjustedX}px`;
+        this.el.style.top = `${adjustedY}px`;
+
     }
 
     close () {
@@ -27,27 +37,27 @@ export class ContextMenu extends Menu {
     }
 
     add (module) {
-        this.modules.push(module);
+        if (module instanceof Module) {
+            this.modules.push(module);
+            this.el.insertAdjacentHTML('beforeend', module.toHTML());
+        }
+    }
 
-        const menuItem = document.createElement('li');
-        menuItem.className = 'menu-item';
-        menuItem.dataset.type = module.type;
-        menuItem.textContent = module.text;
+    handleMenuItemClick = (event) => {
+        const menuItem = event.target.closest('.menu-item');
+        if (!menuItem) return;
 
-        this.el.appendChild(menuItem);
+        const type = menuItem.dataset.type;
+        const module = this.modules.find(module => module.type === type);
 
-        menuItem.addEventListener('click', () => {
+        if (module) {
             module.trigger();
-            this.close();
-        })
+            this.close()
+        }
     }
 
     bindEvents() {
         document.body.addEventListener('contextmenu', this.rightClickOnSite)
-        document.addEventListener('click', (event) => {
-            if (!event.target.closest('.menu')) {
-                this.close()
-            }
-        })
+        this.el.addEventListener('click', this.handleMenuItemClick)
     }
 }

@@ -1,4 +1,8 @@
 import './styles.css'
-import { ContextMenu } from './menu.js';
+import { ShapeModule } from './modules/shape.module'
+import { Page } from './pages/main/main';
+import { BackgroundModule } from './modules/background.module';
+
+
 
 const contextMenu = new ContextMenu('#menu')

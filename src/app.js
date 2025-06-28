@@ -5,3 +5,4 @@ import { BackgroundModule } from './modules/background.module';
 
 
 
+const contextMenu = new ContextMenu('#menu')

@@ -2,7 +2,7 @@ import './styles.css'
 import { ShapeModule } from './modules/shape.module'
 import { ContextMenu } from './menu';
 import { Page } from './pages/main/main';
-import { BackgroundModule } from './modules/background.module';
+import { BackgroundModule } from './modules/background/background.module';
 import { ClicksModule } from './modules/clicks.module/clicks.module';
 
 document.addEventListener('DOMContentLoaded', () => {

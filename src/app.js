@@ -11,10 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const backgorund = new BackgroundModule('brackground', 'Сменить цвет');
     const shape = new ShapeModule('shape', 'Создать фигуру');
     const click = new ClicksModule('click', 'Аналитика кликов');
+    const custom = new CustomMessageModule('message', 'Вывести сообщение')
 
     contextMenu.add(backgorund);
     contextMenu.add(shape);
     contextMenu.add(click);
+    contextMenu.add(custom);
 
     new Page(contextMenu.modules);
 })

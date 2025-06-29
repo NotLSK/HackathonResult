@@ -1,11 +1,15 @@
 import './main.css'
 
+/**
+ * Инициализация и рендер стартовой страницы с описанием модулей приложения.
+ * @author Egor Razzorenov / NotLSK
+ */
 export class Page {
     #content
 
     constructor(modules = []) {
         this.modules = modules;
-        this.#renderMainPage();
+        this.renderMainPage();
     }
 
     async #getModulesData() {
@@ -22,7 +26,7 @@ export class Page {
         }
     }
 
-    #renderMainPage() {
+    renderMainPage() {
         const app = document.querySelector('#app');
 
         const container = document.createElement('div');

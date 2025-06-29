@@ -1,5 +1,9 @@
 import { Module } from '../core/module'
 
+/**
+ * Считает количество двойных и одинарных кликов за определенное количество секунд.
+ * @author Maxim / TrueMax
+ */
 export class ClicksModule extends Module {
   constructor(type, text) {
     super(type, text);
@@ -79,20 +83,20 @@ export class ClicksModule extends Module {
 
   startTest(timerDisplay, resultDisplay) {
     if (this.isActive) return;
-    
+
     this.isActive = true;
     this.clickCount = 0;
     resultDisplay.textContent = '0 кликов';
     timerDisplay.textContent = '5 сек';
     timerDisplay.style.color = 'black';
-    
+
     document.addEventListener('click', this.countClick);
-    
+
     let seconds = 5;
     this.timer = setInterval(() => {
       seconds--;
       timerDisplay.textContent = `${seconds} сек`;
-      
+
       if (seconds <= 0) {
         clearInterval(this.timer);
         this.endTest(timerDisplay, resultDisplay);

@@ -17,9 +17,13 @@ export class ShapeModule extends Module {
     }
 
     trigger() {
-        this.shape = this.#getRandomShape();
+        const shapeHTML = this.#getShapeHTML()
 
-        document.body.append(this.#getShapeHTML());
+        document.querySelector('#app').append(shapeHTML);
+
+        setTimeout(() => {
+            this.#removeShape(shapeHTML)
+        }, 5000)
     }
 
     #getRandomShape() {
@@ -27,13 +31,13 @@ export class ShapeModule extends Module {
     }
 
     #getShapeHTML() {
-        this.#shapeHTML = document.createElement('div');
-        this.#shapeHTML.className = this.shape;
+        const shapeHTML = document.createElement('div');
+        shapeHTML.className = this.shape;
 
-        this.#setShapeStyle(this.#shapeHTML);
-        this.#setRandomPosition(this.#shapeHTML);
+        this.#setShapeStyle(shapeHTML);
+        this.#setRandomPosition(shapeHTML);
 
-        return this.#shapeHTML;
+        return shapeHTML;
     }
 
     #setShapeStyle(shape) {
@@ -44,7 +48,9 @@ export class ShapeModule extends Module {
         shape.style.backgroundColor = randomColor;
         shape.style.transform = `rotate(${random(0, 360)}deg)`
 
-        switch (this.shape) {
+        const shapeType = this.#getRandomShape();
+
+        switch (shapeType) {
             case 'square':
                 this.#height = this.#width;
                 shape.style.height = `${this.#height}px`;
@@ -92,6 +98,11 @@ export class ShapeModule extends Module {
         shape.style.position = 'absolute';
         shape.style.left = `${positionX}px`;
         shape.style.top = `${positionY}px`;
-        console.log(shape.style.left, shape.style.top)
+    }
+
+    #removeShape(shape) {
+        if (shape) {
+            shape.remove();
+        }
     }
 }

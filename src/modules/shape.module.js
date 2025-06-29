@@ -3,7 +3,7 @@ import { random, getRandomColor } from '../utils';
 
 /**
  * Создаёт случайную фигуру на странице. Фигура имеет случайные: позицию, цвет и размер.
- * @author Egor Razzorenov
+ * @author Egor / NotLSK
  */
 export class ShapeModule extends Module {
     #shapeHTML

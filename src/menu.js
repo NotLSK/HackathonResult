@@ -1,6 +1,10 @@
-import {Menu} from './core/menu.js';
-import {Module} from './core/module.js';
+import { Menu } from './core/menu.js';
+import { Module } from './core/module.js';
 
+/**
+ * Кастомное контекстное меню.
+ * @author Maxim / sckzzz
+ */
 export class ContextMenu extends Menu {
     constructor(selector) {
         super(selector);
@@ -14,16 +18,16 @@ export class ContextMenu extends Menu {
         if (this.modules.length > 0) {
             this.open(event.clientX, event.clientY)
         }
-    } 
+    }
 
-    open (x, y) {
+    open(x, y) {
         this.el.classList.add('open');
 
         const menuWidth = this.el.offsetWidth;
         const menuHeight = this.el.offsetHeight;
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
-        
+
         const adjustedX = x + menuWidth > windowWidth ? windowWidth - menuWidth : x;
         const adjustedY = y + menuHeight > windowHeight ? windowHeight - menuHeight : y;
 
@@ -32,11 +36,11 @@ export class ContextMenu extends Menu {
 
     }
 
-    close () {
+    close() {
         this.el.classList.remove('open')
     }
 
-    add (module) {
+    add(module) {
         if (module instanceof Module) {
             this.modules.push(module);
             this.el.insertAdjacentHTML('beforeend', module.toHTML());

@@ -4,6 +4,7 @@ import { ContextMenu } from './menu';
 import { Page } from './pages/main/main';
 import { BackgroundModule } from './modules/background/background.module';
 import { ClicksModule } from './modules/clicks.module/clicks.module';
+import { CustomMessageModule } from './modules/custom.module';
 
 document.addEventListener('DOMContentLoaded', () => {
     const contextMenu = new ContextMenu('#menu')

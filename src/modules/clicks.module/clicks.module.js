@@ -1,6 +1,10 @@
 import { Module } from '../../core/module';
 import './clicks-module.css';
 
+/**
+ * Считает количество двойных и одинарных кликов за определенное количество секунд.
+ * @author Maxim / TrueMax
+ */
 export class ClicksModule extends Module {
   constructor(type, text) {
     super(type, text);
@@ -77,14 +81,14 @@ export class ClicksModule extends Module {
 
   handleClick = (event) => {
     if (!this.isActive) return;
-    
+
     // Игнорируем клики внутри интерфейса модуля
     if (this.container.contains(event.target)) {
       return;
     }
 
     this.clickCount++;
-    
+
     if (this.clickCount === 1) {
       this.clickTimeout = setTimeout(() => {
         // Одиночный клик
@@ -114,7 +118,7 @@ export class ClicksModule extends Module {
       clearTimeout(this.clickTimeout);
       this.clickTimeout = null;
     }
-    
+
     clearInterval(this.timer);
     this.isActive = false;
     this.singleClicks = 0;
@@ -129,13 +133,13 @@ export class ClicksModule extends Module {
   endTest(timerDisplay, resultDisplay) {
     this.isActive = false;
     document.removeEventListener('click', this.handleClick);
-    
+
     // Очищаем таймер двойного клика
     if (this.clickTimeout) {
       clearTimeout(this.clickTimeout);
       this.clickTimeout = null;
     }
-    
+
     timerDisplay.textContent = 'Время вышло!';
     timerDisplay.classList.add('clicks-module-timer-red');
     resultDisplay.textContent = `Итог: ${this.singleClicks} одиночных, ${this.doubleClicks} двойных`;

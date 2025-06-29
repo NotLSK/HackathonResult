@@ -1,4 +1,5 @@
-import { Module } from '../core/module'
+import { Module } from '../../core/module';
+import './clicks-module.css'; // Импорт стилей
 
 /**
  * Считает количество двойных и одинарных кликов за определенное количество секунд.
@@ -14,61 +15,32 @@ export class ClicksModule extends Module {
   }
 
   trigger() {
-    // Удаляем предыдущий контейнер если есть
     if (this.container) {
       this.container.remove();
     }
-
     this.createUI();
   }
 
   createUI() {
     this.container = document.createElement('div');
-    this.container.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 15px;
-      text-align: center;
-      background: #f5f5f5;
-      font-family: Arial;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      z-index: 1000;
-    `;
+    this.container.className = 'clicks-module-container';
 
     const timerDisplay = document.createElement('div');
     timerDisplay.id = 'timer';
+    timerDisplay.className = 'clicks-module-timer';
     timerDisplay.textContent = 'Нажмите "Старт"';
-    timerDisplay.style.cssText = 'font-size: 20px; margin: 10px;';
 
     const resultDisplay = document.createElement('div');
     resultDisplay.id = 'result';
-    resultDisplay.style.cssText = 'font-size: 24px; font-weight: bold; margin: 15px;';
+    resultDisplay.className = 'clicks-module-result';
 
     const startBtn = document.createElement('button');
     startBtn.textContent = 'Старт';
-    startBtn.style.cssText = `
-      padding: 10px 20px;
-      margin: 5px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    `;
+    startBtn.className = 'clicks-module-button clicks-module-button-start';
 
     const resetBtn = document.createElement('button');
     resetBtn.textContent = 'Сброс';
-    resetBtn.style.cssText = `
-      padding: 10px 20px;
-      margin: 5px;
-      background: #f44336;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    `;
+    resetBtn.className = 'clicks-module-button clicks-module-button-reset';
 
     this.container.appendChild(timerDisplay);
     this.container.appendChild(resultDisplay);
@@ -76,7 +48,6 @@ export class ClicksModule extends Module {
     this.container.appendChild(resetBtn);
     document.body.appendChild(this.container);
 
-    // Обработчики событий
     startBtn.addEventListener('click', () => this.startTest(timerDisplay, resultDisplay));
     resetBtn.addEventListener('click', () => this.resetTest(timerDisplay, resultDisplay));
   }
@@ -117,6 +88,7 @@ export class ClicksModule extends Module {
     this.clickCount = 0;
     document.removeEventListener('click', this.countClick);
     timerDisplay.textContent = 'Нажмите "Старт"';
+    timerDisplay.classList.remove('clicks-module-timer-red');
     resultDisplay.textContent = '';
   }
 
@@ -124,15 +96,14 @@ export class ClicksModule extends Module {
     this.isActive = false;
     document.removeEventListener('click', this.countClick);
     timerDisplay.textContent = 'Время вышло!';
-    timerDisplay.style.color = 'red';
+    timerDisplay.classList.add('clicks-module-timer-red');
     resultDisplay.textContent = `Итог: ${this.clickCount} кликов`;
 
-    // Автоудаление через 5 секунд
     setTimeout(() => {
       if (this.container) {
         this.container.remove();
         this.container = null;
       }
-    }, 5000);
+    }, 10000);
   }
 }

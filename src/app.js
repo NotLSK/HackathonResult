@@ -3,7 +3,7 @@ import { ShapeModule } from './modules/shape.module'
 import { ContextMenu } from './menu';
 import { Page } from './pages/main/main';
 import { BackgroundModule } from './modules/background.module';
-import { ClicksModule } from './modules/clicks.module';
+import { ClicksModule } from './modules/clicks.module/clicks.module';
 
 document.addEventListener('DOMContentLoaded', () => {
     const contextMenu = new ContextMenu('#menu')

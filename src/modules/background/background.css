@@ -1,0 +1,79 @@
+.bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.stop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  opacity: 0;
+  animation: flashing 0.5s forwards 0.2s;
+}
+
+.stop-text {
+  font-size: 120px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 0 20px #000;
+  transform: scale(2) scaleY(2);
+
+}
+
+.shake-active {
+  animation: chaoticShake 0.15s infinite !important;
+}
+
+.back-shine{
+    animation: shine 0.15s infinite;
+}
+
+@keyframes wave {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes bodyShrink {
+  0%, 100% { transform: scale(1); }
+  30% { transform: scale(0.92); }
+  70% { transform: scale(0.95); }
+}
+
+@keyframes chaoticShake {
+  0% { transform: translate(0, 0) rotate(0); }
+  10% { transform: translate(-15px, 8px) rotate(-1deg); }
+  20% { transform: translate(12px, -9px) rotate(0.8deg); }
+  30% { transform: translate(-8px, 12px) rotate(-0.5deg); }
+  40% { transform: translate(10px, -7px) rotate(0.3deg); }
+  50% { transform: translate(-12px, 6px) rotate(-0.7deg); }
+  60% { transform: translate(9px, -10px) rotate(0.4deg); }
+  70% { transform: translate(-7px, 11px) rotate(-0.2deg); }
+  80% { transform: translate(11px, -8px) rotate(0.5deg); }
+  90% { transform: translate(-9px, 7px) rotate(-0.3deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+
+@keyframes flashing {
+  0%, 3%, 5%, 10%, 35%, 90%{ opacity: 0; }
+  1%, 2%, 4%, 6%, 9%, 11%, 34%, 36%, 89%, 91%, 100% { opacity: 1; }
+}
+
+@keyframes shine {
+    0%, 100% { background-color: black;}
+    50% {background-color: red;}
+}
